@@ -3,6 +3,7 @@ using Homey.Net.Auth;
 using Homey.Net.Auth.Auth;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using ClassicAssert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace Homey.Net.Test
 {
@@ -36,7 +37,7 @@ namespace Homey.Net.Test
             string expected = "email=test%40gmail.com&password=test!&otptoken=";
             Authentication auth = new Authentication();
             string encoded = auth.EncodeUserNamePAssword("test@gmail.com", "test!");
-            Assert.AreEqual(expected, encoded);
+            ClassicAssert.AreEqual(expected, encoded);
         }
 
         [Test]
@@ -47,10 +48,10 @@ namespace Homey.Net.Test
             string content = System.IO.File.ReadAllText(path);
 
             TokenInfo tokenInfo = JsonConvert.DeserializeObject<TokenInfo>(content);
-            Assert.AreEqual("1234", tokenInfo.AccessToken);
-            Assert.AreEqual("5678", tokenInfo.RefreshToken);
-            Assert.AreEqual(3660, tokenInfo.ExpiresIn);
-            Assert.AreEqual("bearer", tokenInfo.TokenType);
+            ClassicAssert.AreEqual("1234", tokenInfo.AccessToken);
+            ClassicAssert.AreEqual("5678", tokenInfo.RefreshToken);
+            ClassicAssert.AreEqual(3660, tokenInfo.ExpiresIn);
+            ClassicAssert.AreEqual("bearer", tokenInfo.TokenType);
         }
     }
 }

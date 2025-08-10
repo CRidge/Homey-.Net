@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Homey.Net.Dtos;
 using NUnit.Framework;
+using ClassicAssert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace Homey.Net.Test.Infrastructure
 {
@@ -23,8 +24,8 @@ namespace Homey.Net.Test.Infrastructure
         public async Task TestRequestDevices()
         {
             IList<Device> devices = await _client.GetDevices();
-            Assert.NotNull(devices);
-            Assert.Greater(devices.Count, 3);
+            ClassicAssert.NotNull(devices);
+            ClassicAssert.Greater(devices.Count, 3);
             AssertDevice(devices.First());
         }
 
@@ -32,8 +33,8 @@ namespace Homey.Net.Test.Infrastructure
         public async Task TestRequestZoneDevices()
         {
             IList<Device> devices = await _client.GetDevices("9919ee1e-ffbc-480b-bc4b-77fb047e9e68");
-            Assert.NotNull(devices);
-            Assert.Greater(devices.Count, 3);
+            ClassicAssert.NotNull(devices);
+            ClassicAssert.Greater(devices.Count, 3);
             AssertDevice(devices.First());
         }
 
@@ -56,8 +57,8 @@ namespace Homey.Net.Test.Infrastructure
         public async Task TestRequestZones()
         {
             IList<Zone> zones = await _client.GetZones();
-            Assert.NotNull(zones);
-            Assert.Greater(zones.Count, 3);
+            ClassicAssert.NotNull(zones);
+            ClassicAssert.Greater(zones.Count, 3);
             AssertZone(zones.First());
         }
         
@@ -65,8 +66,8 @@ namespace Homey.Net.Test.Infrastructure
         public async Task TestRequestFlows()
         {
             IList<Flow> flows = await _client.GetFlows();
-            Assert.NotNull(flows);
-            Assert.Greater(flows.Count, 3);
+            ClassicAssert.NotNull(flows);
+            ClassicAssert.Greater(flows.Count, 3);
             AssertFlow(flows.First());
         }
 
@@ -82,8 +83,8 @@ namespace Homey.Net.Test.Infrastructure
         public async Task TestRequestAlarms()
         {
             IList<Alarm> alarms = await _client.GetAlarms();
-            Assert.NotNull(alarms);
-            Assert.AreEqual(alarms.Count, 1);
+            ClassicAssert.NotNull(alarms);
+            ClassicAssert.AreEqual(alarms.Count, 1);
             AssertAlarm(alarms.First());
         }
 
@@ -91,7 +92,7 @@ namespace Homey.Net.Test.Infrastructure
         public async Task TestRequestSystem()
         {
             HomeySystem system = await _client.GetSystem();
-            Assert.NotNull(system);
+            ClassicAssert.NotNull(system);
             AssertSystem(system);
         }
         
@@ -102,9 +103,9 @@ namespace Homey.Net.Test.Infrastructure
 
             TransactionResponse result = await _client.SetBooleanCapability(id, "onoff", true);
             
-            Assert.NotNull(result);
-            Assert.False(string.IsNullOrEmpty(result.TransactionId));
-            Assert.False(string.IsNullOrEmpty(result.TransactionTime));
+            ClassicAssert.NotNull(result);
+            ClassicAssert.False(string.IsNullOrEmpty(result.TransactionId));
+            ClassicAssert.False(string.IsNullOrEmpty(result.TransactionTime));
         }
 
         [Test]
@@ -131,61 +132,61 @@ namespace Homey.Net.Test.Infrastructure
         {
             string flowId = "d812af08-e413-4b64-991c-7d81e3f35cb7";
             bool result = await _client.TriggerFlow(flowId);
-            Assert.True(result);
+            ClassicAssert.True(result);
         }
 
         private static void AssertDevice(Device device)
         {
-            Assert.NotNull(device);
-            Assert.False(string.IsNullOrEmpty(device.Id));
-            Assert.False(string.IsNullOrEmpty(device.Name));
-            Assert.NotNull(device.Capabilities);
-            Assert.NotNull(device.CapabilitiesObj);
-            Assert.NotNull(device.Data);
+            ClassicAssert.NotNull(device);
+            ClassicAssert.False(string.IsNullOrEmpty(device.Id));
+            ClassicAssert.False(string.IsNullOrEmpty(device.Name));
+            ClassicAssert.NotNull(device.Capabilities);
+            ClassicAssert.NotNull(device.CapabilitiesObj);
+            ClassicAssert.NotNull(device.Data);
         }
 
         private void AssertReport(CapatibilityReport report)
         {
-            Assert.NotNull(report);
-            Assert.False(string.IsNullOrEmpty(report.Id));
-            Assert.False(string.IsNullOrEmpty(report.Uri));
-            Assert.Greater(report.Values.Count, 3);
+            ClassicAssert.NotNull(report);
+            ClassicAssert.False(string.IsNullOrEmpty(report.Id));
+            ClassicAssert.False(string.IsNullOrEmpty(report.Uri));
+            ClassicAssert.Greater(report.Values.Count, 3);
         }
 
         private void AssertZone(Zone zone)
         {
-            Assert.NotNull(zone);
-            Assert.False(string.IsNullOrEmpty(zone.Name));
-            Assert.False(string.IsNullOrEmpty(zone.Id));
+            ClassicAssert.NotNull(zone);
+            ClassicAssert.False(string.IsNullOrEmpty(zone.Name));
+            ClassicAssert.False(string.IsNullOrEmpty(zone.Id));
         }
 
         private void AssertFlow(Flow flow)
         {
-            Assert.NotNull(flow);
-            Assert.False(string.IsNullOrEmpty(flow.Name));
-            Assert.False(string.IsNullOrEmpty(flow.Id));
-            Assert.NotNull(flow.Actions);
-            Assert.NotNull(flow.Conditions);
+            ClassicAssert.NotNull(flow);
+            ClassicAssert.False(string.IsNullOrEmpty(flow.Name));
+            ClassicAssert.False(string.IsNullOrEmpty(flow.Id));
+            ClassicAssert.NotNull(flow.Actions);
+            ClassicAssert.NotNull(flow.Conditions);
         }
 
         private void AssertAlarm(Alarm alarm)
         {
-            Assert.NotNull(alarm);
-            Assert.False(string.IsNullOrEmpty(alarm.Id));
-            Assert.False(string.IsNullOrEmpty(alarm.Name));
-            Assert.False(string.IsNullOrEmpty(alarm.Time));
-            Assert.True(alarm.NextOccurance > DateTime.MinValue);
-            Assert.NotNull(alarm.Repetition);
+            ClassicAssert.NotNull(alarm);
+            ClassicAssert.False(string.IsNullOrEmpty(alarm.Id));
+            ClassicAssert.False(string.IsNullOrEmpty(alarm.Name));
+            ClassicAssert.False(string.IsNullOrEmpty(alarm.Time));
+            ClassicAssert.True(alarm.NextOccurance > DateTime.MinValue);
+            ClassicAssert.NotNull(alarm.Repetition);
         }
 
         private void AssertSystem(HomeySystem system)
         {
-            Assert.False(string.IsNullOrEmpty(system.HomeyVersion));
-            Assert.False(string.IsNullOrEmpty(system.HomeyModelId));
-            Assert.False(string.IsNullOrEmpty(system.Hostname));
-            Assert.False(string.IsNullOrEmpty(system.NodeVersion));
-            Assert.False(string.IsNullOrEmpty(system.WifiAddress));
-            Assert.False(string.IsNullOrEmpty(system.WifiSsid));
+            ClassicAssert.False(string.IsNullOrEmpty(system.HomeyVersion));
+            ClassicAssert.False(string.IsNullOrEmpty(system.HomeyModelId));
+            ClassicAssert.False(string.IsNullOrEmpty(system.Hostname));
+            ClassicAssert.False(string.IsNullOrEmpty(system.NodeVersion));
+            ClassicAssert.False(string.IsNullOrEmpty(system.WifiAddress));
+            ClassicAssert.False(string.IsNullOrEmpty(system.WifiSsid));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.IO;
 using Homey.Net.Dtos;
 using Homey.Net.Test.Infrastructure;
 using NUnit.Framework;
+using ClassicAssert = NUnit.Framework.Legacy.ClassicAssert;
 
 namespace Homey.Net.Test
 {
@@ -23,7 +24,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetZonesResponseFile);
             List<Zone> response = _parser.ParseZones(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
 
@@ -32,7 +33,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetDevicesResponseFile);
             List<Device> response = _parser.ParseDevices(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
         [Test]
@@ -40,7 +41,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetFlowResponseFile);
             Flow response = _parser.ParseFlow(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
         [Test]
@@ -48,7 +49,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetFlowsResponseFile);
             List<Flow> response = _parser.ParseFlows(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
         [Test]
@@ -56,7 +57,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetCapatibilityReport);
             CapatibilityReport response = _parser.ParseCapatibilityReport(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
         [Test]
@@ -64,7 +65,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetAlarmResponse);
             Alarm response = _parser.ParseAlarm(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
 
@@ -73,7 +74,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetAlarmsResponse);
             IList<Alarm> response = _parser.ParseAlarms(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
         [Test]
@@ -81,7 +82,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.SetOnOff);
             TransactionResponse response = _parser.ParseTransactionResponse(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
 
         [Test]
@@ -89,7 +90,7 @@ namespace Homey.Net.Test
         {
             string data = File.ReadAllText(_testData.GetSystemResponse);
             HomeySystem response = _parser.ParseSystem(data);
-            Assert.NotNull(response);
+            ClassicAssert.NotNull(response);
         }
     }
 }
