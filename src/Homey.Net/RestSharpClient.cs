@@ -7,17 +7,17 @@ namespace Homey.Net
     {
         public Task<RestResponseResult> RequestAsyncGet(string endpoint, string bearerToken = null)
         {
-            return RequestAsync(endpoint, null, Method.GET, bearerToken);
+            return RequestAsync(endpoint, null, Method.Get, bearerToken);
         }
 
         public Task<RestResponseResult> RequestAsyncPut(string endpoint, object body, string bearerToken = null)
         {
-            return RequestAsync(endpoint, body, Method.PUT, bearerToken);
+            return RequestAsync(endpoint, body, Method.Put, bearerToken);
         }
 
         public Task<RestResponseResult> RequestAsyncPost(string endpoint, object body, string bearerToken = null)
         {
-            return RequestAsync(endpoint, body, Method.POST, bearerToken);
+            return RequestAsync(endpoint, body, Method.Post, bearerToken);
         }
 
         private async Task<RestResponseResult> RequestAsync(string endpoint, object body, Method method, string bearerToken = null)
@@ -30,9 +30,7 @@ namespace Homey.Net
                 client.AddDefaultHeader("Authorization", $"Bearer {bearerToken}");
             }
 
-            RestRequest restRequest = new RestRequest(method);
-            restRequest.RequestFormat = DataFormat.Json;
-            restRequest.JsonSerializer = new RestSharpJsonSerializer();
+            RestRequest restRequest = new RestRequest("", method);
             restRequest.AddHeader("Accept", "application/json");
 
             if (body != null)
@@ -40,7 +38,7 @@ namespace Homey.Net
                 restRequest.AddJsonBody(body);
             }
 
-            IRestResponse response = await client.ExecuteAsync(restRequest);
+            RestResponse response = await client.ExecuteAsync(restRequest);
 
             return new RestResponseResult
             {

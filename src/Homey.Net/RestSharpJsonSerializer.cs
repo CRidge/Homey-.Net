@@ -14,7 +14,7 @@ namespace Homey.Net
 
         public RestSharpJsonSerializer()
         {
-            ContentType = "application/json";
+            ContentType = RestSharp.ContentType.Json;
             _serializer = new Newtonsoft.Json.JsonSerializer
             {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
@@ -26,7 +26,7 @@ namespace Homey.Net
 
         public RestSharpJsonSerializer(Newtonsoft.Json.JsonSerializer serializer)
         {
-            ContentType = "application/json";
+            ContentType = RestSharp.ContentType.Json;
             _serializer = serializer;
         }
 
@@ -47,7 +47,7 @@ namespace Homey.Net
             }
         }
 
-        public string ContentType
+        public RestSharp.ContentType ContentType
         {
             get;
             set;
